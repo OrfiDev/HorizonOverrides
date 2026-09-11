@@ -54,6 +54,23 @@ being applied. Re-enable the Apply overrides switch later to re-arm it.
 
 ## Recovery
 
+Horizon Overrides does not run in the bootloader or stock recovery. It can act only after Android,
+the root implementation, Xposed, and Horizon have started. The available recovery paths therefore
+depend on the headset's boot state.
+
+### Unlocked, rooted headsets
+
+Bootloader-unlocked Quest headsets are rare. On one that uses Magisk, Magisk Safe Mode is the
+strongest recovery layer: trigger Safe Mode with the device's supported key procedure during boot.
+Magisk then disables its modules, including the Xposed framework, before Horizon Overrides can
+load. Exact timing can vary between Magisk/device builds, so verify the procedure for the installed
+root build before experimenting.
+
+The app also has two independent guards: it stops applying overrides after repeated Horizon starts,
+and it watches for Volume Down for three seconds while its Horizon module starts. The latter is a
+convenience guard, not a guaranteed hardware interlock: root input access, key-event timing, or a
+different input label can prevent detection.
+
 Try these in order:
 
 1. Hold **Volume Down** continuously while Horizon starts. Keep holding it for several seconds after
@@ -88,6 +105,26 @@ Try these in order:
 
 Uninstalling deletes the module's saved preferences. Disabling it is reversible and is the preferred
 first ADB recovery step.
+
+### Locked retail headsets
+
+A locked headset cannot boot a conventional modified boot image containing Magisk, so Magisk Safe
+Mode is not a recovery path there. Without a working root/Xposed environment, Horizon Overrides
+cannot load or apply anything during boot in the first place. If a temporary or late-starting root
+method was used, Android normally starts unmodified first; remove the app before starting that root
+environment again:
+
+```sh
+adb uninstall com.quest.horizonconfig
+adb reboot
+```
+
+This uninstall command does not require root because Horizon Overrides is a user-installed app. If
+Android reaches the UI but ADB is unavailable, uninstall it through the normal application settings
+and do not start the temporary root/Xposed environment. If Android itself cannot reach the UI or
+ADB even with that environment absent, Horizon Overrides is not executing at that stage; use Meta's
+documented headset recovery/factory-reset procedure. A factory reset erases local apps and data and
+is the last resort.
 
 ## Build and install
 
