@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.HorizonConfig" parent="Theme.Material3Expressive.Dark.NoActionBar">
+        <item name="colorPrimary">#A9C7FF</item>
+        <item name="colorOnPrimary">#14213A</item>
+        <item name="colorSurface">#14171D</item>
+        <item name="colorOnSurface">#E4E2E9</item>
+    </style>
+</resources>

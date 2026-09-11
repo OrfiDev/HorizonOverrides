@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Live values, held changes and the change log come from the module inside Horizon. -->
+    <queries>
+        <provider android:authorities="com.facebook.mobileconfigservice.contentprovider" />
+    </queries>
+    <application android:label="Horizon Overrides" android:icon="@drawable/ic_module"
+        android:description="@string/description" android:theme="@style/Theme.HorizonConfig">
+        <activity android:name=".SettingsActivity" android:exported="true">
+            <layout android:defaultWidth="1024dp" android:defaultHeight="720dp"
+                android:minWidth="640dp" android:minHeight="480dp" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
